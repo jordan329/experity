@@ -3,10 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RequestSubmissionComponent } from './request-submission/request-submission.component';
+import { ResultsGridComponent } from './results-grid/results-grid.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RequestSubmissionComponent,
+    ResultsGridComponent
   ],
   imports: [
     BrowserModule,
