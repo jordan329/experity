@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NumberApiService } from '../service/number-api.service'
+
 @Component({
   selector: 'app-request-submission',
   templateUrl: './request-submission.component.html',
@@ -11,7 +13,7 @@ export class RequestSubmissionComponent implements OnInit {
   doctorScore = 0;
   message = "";
 
-  constructor(private service: NumberApiService) { }
+  constructor(private service: NumberApiService, private _router: Router) { }
 
   ngOnInit(): void {
   }
@@ -33,6 +35,7 @@ export class RequestSubmissionComponent implements OnInit {
     }
   }
   sendRequest() {
-    this.service.postNumbers(this.sampleMax, this.patientScore, this.doctorScore, this.message)
+    this.service.postNumbers(this.sampleMax, this.patientScore, this.doctorScore, this.message);
+    this._router.navigateByUrl('/results')
   }
 }

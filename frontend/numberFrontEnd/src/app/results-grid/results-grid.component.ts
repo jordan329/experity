@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ColDef, GridReadyEvent, ValueGetterParams } from 'ag-grid-community';
+import { ColDef, GridReadyEvent } from 'ag-grid-community';
 import { Observable } from 'rxjs';
 import { Result } from '../models/result';
 import { NumberApiService } from '../service/number-api.service';
@@ -26,12 +26,12 @@ export class ResultsGridComponent implements OnInit {
     this.rowData$ = this.service.getNumbers();
     this.service.getNumbers().subscribe(x => {
       x.forEach(y => y.scoreString = this.service.getScoreFromNumber(y.score));
-       this.results = x
+      this.results = x
     });
   }
 
   public columnDefs: ColDef[] = [
-    { field: 'sampleNumber', sort: 'asc'},
+    { field: 'sampleNumber', sort: 'asc' },
     { field: 'scoreString' },
   ];
 

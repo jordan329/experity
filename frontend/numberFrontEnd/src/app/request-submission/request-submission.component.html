@@ -1,19 +1,17 @@
-<p>request-submission</p>
+<div class="container">
 
-<h5>Sample max count</h5>
-<input id="sampleMax" (keyup)="onKey($event)">
-<p>{{sampleMax}}</p>
+  <h5>Sample max count</h5>
+  <input id="sampleMax" (keyup)="onKey($event)">
+  <h5>Patient score</h5>
+  <input id="patientScore" (keyup)="onKey($event)">
+  <h5>Doctor score</h5>
+  <input id="doctorScore" (keyup)="onKey($event)">
+  <h5>Message</h5>
+  <input id="message" (keyup)="onKey($event)">
 
-<h5>patient score</h5>
-<input id="patientScore" (keyup)="onKey($event)">
-<p>{{patientScore}}</p>
+  <br>
+  <br>
 
-<h5>doctor score</h5>
-<input id="doctorScore" (keyup)="onKey($event)">
-<p>{{doctorScore}}</p>
+  <button type="button" class="btn btn-primary">Submit and go</button>
 
-<h5>message</h5>
-<input id="message" (keyup)="onKey($event)">
-<p>{{message}}</p>
-
-<a (click)="sendRequest()" routerLink="/results" routerLinkActive="active" ariaCurrentWhenActive="page">Submit and go</a>
+</div>

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, take } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { Result } from '../models/result';
-import { ValueCache } from 'ag-grid-community';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ export class NumberApiService {
 
   constructor(private http: HttpClient) { }
 
-  getNumbers():Observable<Result[]> {
+  getNumbers(): Observable<Result[]> {
     return this.http.get<Result[]>("https://localhost:7180/").pipe(take(1))
   }
   getMessage() {

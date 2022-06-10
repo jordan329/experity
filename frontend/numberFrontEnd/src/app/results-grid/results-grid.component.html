@@ -1,17 +1,8 @@
-<p>results-grid</p>
-<br />
-
-<h1>
-  Message From Last Request: {{message}}
-</h1>
-
-<ag-grid-angular
-   style="width: 100%; height: 100%"
-   class="ag-theme-alpine"
-   [columnDefs]="columnDefs"
-   [defaultColDef]="defaultColDef"
-   [rowData]="results"
-   [rowSelection]="'multiple'"
-   [animateRows]="true"
-   (gridReady)="onGridReady($event)"
- ></ag-grid-angular>
+<div class="container">
+  <h1>
+    Message From Last Request: {{message}}
+  </h1>
+</div>
+<ag-grid-angular style="width: 50%; height: 90%" class="ag-theme-alpine" [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef" [rowData]="results" [rowSelection]="'multiple'" [animateRows]="true"
+  (gridReady)="onGridReady($event)"></ag-grid-angular>
