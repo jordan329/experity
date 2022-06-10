@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { take } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
+import { Result } from '../models/result';
+import { ValueCache } from 'ag-grid-community';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +11,10 @@ export class NumberApiService {
 
   constructor(private http: HttpClient) { }
 
-  getNumbers() { 
-    return this.http.get("https://localhost:7180/").pipe(take(1))
+  getNumbers():Observable<Result[]> {
+    return this.http.get<Result[]>("https://localhost:7180/").pipe(take(1))
   }
-  getMessage() { 
+  getMessage() {
     return this.http.get("https://localhost:7180/message").pipe(take(1))
   }
   postNumbers(sampleMax: number, patientScore: number, doctorScore: number, message: string) {
@@ -25,5 +27,24 @@ export class NumberApiService {
         UploadedMessage: message
       }
     ).pipe(take(1)).subscribe();
+  }
+
+  getScoreFromNumber(input: number): string {
+    let value: string = '';
+    switch (input) {
+      case 0:
+        value = 'none'
+        break;
+      case 1:
+        value = 'Doctor'
+        break;
+      case 2:
+        value = 'Patient'
+        break;
+      case 3:
+        value = 'Both'
+        break;
+    }
+    return value;
   }
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ColDef, GridReadyEvent, ValueGetterParams } from 'ag-grid-community';
+import { Observable } from 'rxjs';
+import { Result } from '../models/result';
 import { NumberApiService } from '../service/number-api.service';
 
 @Component({
@@ -8,13 +11,34 @@ import { NumberApiService } from '../service/number-api.service';
 })
 export class ResultsGridComponent implements OnInit {
 
-  results = [];
+  results: Result[] = [];
   message = "";
-  
+  public rowData$!: Observable<Result[]>;
+
   constructor(private service: NumberApiService) { }
+
   ngOnInit(): void {
-    this.service.getNumbers().subscribe((x: any) => this.results = x);
-    this.service.getMessage().subscribe((x: any) => this.message = x);
+    this.service.getMessage().subscribe((x: any) => this.message = x.message);
+
   }
+
+  onGridReady(params: GridReadyEvent) {
+    this.rowData$ = this.service.getNumbers();
+    this.service.getNumbers().subscribe(x => {
+      x.forEach(y => y.scoreString = this.service.getScoreFromNumber(y.score));
+      this.results = x
+    });
+  }
+
+  public columnDefs: ColDef[] = [
+    { field: 'sampleNumber', sort: 'asc'},
+    { field: 'scoreString' },
+  ];
+
+  public defaultColDef: ColDef = {
+    sortable: true,
+    filter: true,
+  };
+
 
 }

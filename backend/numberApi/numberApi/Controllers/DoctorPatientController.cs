@@ -32,9 +32,11 @@ namespace numberApi.Controllers
         /// </summary>
         /// <returns>string</returns>
         [HttpGet("/message")]
-        public ActionResult<string> GetMessage()
+        public ActionResult<MessageViewModel> GetMessage()
         {
-            return new ActionResult<string>(_context.RequestsForSetup.ToList().OrderByDescending(x => x.TimeOfRequest).FirstOrDefault().UploadedMessage);
+            return new ActionResult<MessageViewModel>(new MessageViewModel() { 
+                Message = _context.RequestsForSetup.ToList().OrderByDescending(x => x.TimeOfRequest).FirstOrDefault().UploadedMessage
+            });
         }
 
         /// <summary>

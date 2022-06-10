@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { RequestSubmissionComponent } from './request-submission/request-submission.component';
 import { ResultsGridComponent } from './results-grid/results-grid.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AgGridModule
   ],
   providers: [],
   bootstrap: [AppComponent]
