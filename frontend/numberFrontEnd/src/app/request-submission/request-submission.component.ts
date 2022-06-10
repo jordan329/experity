@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-request-submission',
@@ -10,7 +11,8 @@ export class RequestSubmissionComponent implements OnInit {
   patientScore = 0;
   doctorScore = 0;
   message = "";
-  constructor() { }
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -30,5 +32,8 @@ export class RequestSubmissionComponent implements OnInit {
         this.message = event.target.value
         break;
     }
+  }
+  sendRequest() {
+    this.http.get("http://localhost:7180/", { withCredentials: true }).subscribe();
   }
 }

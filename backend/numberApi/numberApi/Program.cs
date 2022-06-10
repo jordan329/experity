@@ -15,6 +15,17 @@ builder.Services.AddSwaggerGen((options) =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "CORS_POLICY",
+                      builder =>
+                      {
+                          builder.WithOrigins("http://localhost:4200")
+                          .AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                      });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,6 +35,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CORS_POLICY");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
