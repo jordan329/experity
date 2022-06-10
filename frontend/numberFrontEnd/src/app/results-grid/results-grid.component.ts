@@ -26,7 +26,7 @@ export class ResultsGridComponent implements OnInit {
     this.rowData$ = this.service.getNumbers();
     this.service.getNumbers().subscribe(x => {
       x.forEach(y => y.scoreString = this.service.getScoreFromNumber(y.score));
-      this.results = x
+       this.results = x
     });
   }
 

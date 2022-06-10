@@ -51,8 +51,8 @@ namespace numberApi.Controllers
             _context.GridResults.Select(x => x).ToList().ForEach(x => _context.GridResults.Remove(x));
             _context.SaveChanges();
 
-            var i = 0;
-            while (requestForSetup.SampleMaxCount > i)
+            var i = 1;
+            while (requestForSetup.SampleMaxCount >= i)
             {
                 _context.GridResults.Add(new GridResult()
                 {
