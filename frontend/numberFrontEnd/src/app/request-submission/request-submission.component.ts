@@ -34,6 +34,14 @@ export class RequestSubmissionComponent implements OnInit {
     }
   }
   sendRequest() {
-    this.http.get("http://localhost:7180/", { withCredentials: true }).subscribe();
+    this.http.post("https://localhost:7180/",
+      {
+        TimeOfRequest: new Date(),
+        SampleMaxCount: this.sampleMax,
+        PatientScore: this.patientScore,
+        DoctorScore: this.doctorScore,
+        UploadedMessage: this.message
+      }
+    ).subscribe();
   }
 }

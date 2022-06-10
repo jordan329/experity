@@ -16,4 +16,4 @@
 <input id="message" (keyup)="onKey($event)">
 <p>{{message}}</p>
 
-<button (click)="sendRequest()">Send Request</button>
+<a (click)="sendRequest()" routerLink="/results" routerLinkActive="active" ariaCurrentWhenActive="page">Submit and go</a>
