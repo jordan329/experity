@@ -34,7 +34,8 @@ namespace numberApi.Controllers
         [HttpGet("/message")]
         public ActionResult<MessageViewModel> GetMessage()
         {
-            return new ActionResult<MessageViewModel>(new MessageViewModel() { 
+            return new ActionResult<MessageViewModel>(new MessageViewModel()
+            {
                 Message = _context.RequestsForSetup.ToList().OrderByDescending(x => x.TimeOfRequest).FirstOrDefault().UploadedMessage
             });
         }
@@ -58,7 +59,7 @@ namespace numberApi.Controllers
                 {
                     Id = Guid.NewGuid(),
                     SampleNumber = i,
-                    Score = GetScore(i, requestForSetup),
+                    Score = ScoreUtil.GetScore(i, requestForSetup.DoctorScore, requestForSetup.PatientScore),
                 });
                 i++;
             }
@@ -66,40 +67,6 @@ namespace numberApi.Controllers
             _context.RequestsForSetup.Add(requestForSetup);
             _context.SaveChanges();
             return new ActionResult<List<GridResult>>(_context.GridResults.ToList());
-        }
-        private Score GetScore(int i, RequestForSetup requestForSetup)
-        {
-            var patientDenominator = requestForSetup.PatientScore;
-            var doctorDenominator = requestForSetup.DoctorScore;
-            var isPatient = false;
-            var isDoctor = false;
-
-            if (i % patientDenominator == 0)
-            {
-                isPatient = true;
-            }
-
-            if (i % doctorDenominator == 0)
-            {
-                isDoctor = true;
-            }
-
-            if (isDoctor && isPatient)
-            {
-                return Score.Both;
-            }
-            else if (isDoctor || isPatient)
-            {
-                if (isDoctor)
-                {
-                    return Score.Doctor;
-                }
-                return Score.Patient;// must be is patient no need to check
-            }
-            else
-            {
-                return Score.None;
-            }
         }
     }
 }
