@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { NumberApiService } from '../service/number-api.service';
 
 @Component({
   selector: 'app-results-grid',
@@ -8,10 +8,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ResultsGridComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
-
-  ngOnInit(): void {
-    this.http.get("https://localhost:7180/").subscribe((x: any) => this.results = x);
-  }
   results = [];
+  message = "";
+  
+  constructor(private service: NumberApiService) { }
+  ngOnInit(): void {
+    this.service.getNumbers().subscribe((x: any) => this.results = x);
+    this.service.getMessage().subscribe((x: any) => this.message = x);
+  }
+
 }
