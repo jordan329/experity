@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, take } from 'rxjs';
+import { mergeMap, Observable, of, retry, retryWhen, take, tap, throwError } from 'rxjs';
 import { Result } from '../models/result';
 
 @Injectable({
@@ -8,14 +8,20 @@ import { Result } from '../models/result';
 })
 export class NumberApiService {
 
+  private results: Observable<Result[]> = new Observable();
+
   constructor(private http: HttpClient) { }
 
   getNumbers(): Observable<Result[]> {
-    return this.http.get<Result[]>("https://localhost:7180/").pipe(take(1))
+    return this.http.get<Result[]>("https://localhost:7180/").pipe(mergeMap(val => val.length == 0 ? throwError(() => 'Error!') : of(val)),
+      tap(x => console.log(x)),
+      retry(2))
   }
+
   getMessage() {
     return this.http.get("https://localhost:7180/message").pipe(take(1))
   }
+
   postNumbers(sampleMax: number, patientScore: number, doctorScore: number, message: string) {
     return this.http.post("https://localhost:7180/",
       {
